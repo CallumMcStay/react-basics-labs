@@ -31,6 +31,7 @@ function App() {
     title: "",
     description: "",
     deadline: "",
+    priority: "low"
     });
   
   const formChangeHandler = (event) => {
@@ -45,6 +46,9 @@ function App() {
         break;
       case "deadline":
         form.deadline = event.target.value;
+        break;
+      case "priority":
+        form.priority = event.target.value;
         break;
       default:
         break;
