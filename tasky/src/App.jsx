@@ -1,6 +1,7 @@
 import './App.css';
 import Task from './components/Task';
 import React, { useState } from 'react';
+import AddTaskForm from './components/Form';
 
 function App() {
   
@@ -40,7 +41,7 @@ function App() {
         deleteTask={() => deleteHandker(index)}
         />
       ))}
-
+      <AddTaskForm />
      </div>
   );
 
