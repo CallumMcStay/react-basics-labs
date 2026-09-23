@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
 
 function App() {
   
@@ -24,7 +25,7 @@ function App() {
     console.log(`${taskIndex} ${tasks[taskIndex].done}`);
   }
 
-  const deleteHandker = (taskIndex) => {
+  const deleteHandler = (taskIndex) => {
     const tasks = [...taskState.tasks];
     tasks.splice(taskIndex, 1);
     setTaskState({ tasks });
@@ -82,10 +83,11 @@ function App() {
         align="center"
         gutterBottom
         sx={{
-          backgroundColor: 'gray',
+          backgroundColor: '#3F51B5',
           textAlign: 'center',
           color: 'white',
           padding: '20px',
+          cornerRadius: '15px',
           margin: '20px 0 40px 0',
           borderRadius: '4px'
     }}>
@@ -97,8 +99,17 @@ function App() {
     container
     spacing={5}
     alignItems="flex-start"
-    justifyContent="center">
-    {taskState.tasks.map((task, index) => (
+    sx={{
+        justifyContent: "center"
+      }}>
+    {taskState.tasks.length === 0 ? (
+      <Alert
+        severity="info"
+        sx={{ backgroundColor: '#3F51B5', color: 'white', width: '100%' }}
+      >
+        No tasks yet — add one below to get started!
+      </Alert>
+    ) : (taskState.tasks.map((task, index) => (
       <Task
         title={task.title}
         description={task.description}
@@ -108,7 +119,7 @@ function App() {
         markDone={() => doneHandler(index)}
         deleteTask={() => deleteHandler(index)}
       />
-    ))}
+    )))}
   </Grid>
 </Container>
 <Container
@@ -119,7 +130,9 @@ function App() {
     py: 6,
   }}
 >
-  <Grid container justifyContent="center">
+  <Grid container sx={{
+    justifyContent: "center"
+  }}>
     <AddTaskForm
       submit={formSubmitHandler}
       change={formChangeHandler}

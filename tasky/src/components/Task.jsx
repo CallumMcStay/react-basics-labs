@@ -6,34 +6,27 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from "@mui/icons-material/Done";
+import Chip from "@mui/material/Chip";
 
 const Task = (props) => {
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case "Low":
-        return "green";
-      case "Medium":
-        return "orange";
-      case "High":
-        return "red";
-      default:
-        return "black";
-    }
-  };
-
   return (
-    <Grid key={props.id} size={{ xs: 12, md: 4 }}>
+    <Grid key={props.id} size={{ xs: 12, sm: 6, md: 4 }}>
       <Card
         sx={{
-          backgroundColor: props.done ? "lightgrey" : "lightblue",
+          backgroundColor: props.done ? "#ECEFF1" : "#FFFFFF",
           padding: "20px",
+          boxShadow: 3,
+          borderRadius: "8px",
         }}
       >
         <CardHeader
           title={props.title}
           sx={{
-            backgroundColor: "white",
-            borderRadius: "3px",
+            backgroundColor: "#3F51B5",
+            color: "#FFFFFF",
+            borderRadius: "5px",
             padding: "20px",
             textAlign: "center",
           }}
@@ -48,16 +41,24 @@ const Task = (props) => {
               padding: "20px",
             }}
           >
-            <Typography component="p" variant="subtitle2" color="text.primary">
-              Due: {props.deadline}
-            </Typography>
+            <Chip
+              label={`Due: ${props.deadline}`}
+              sx={{
+                backgroundColor:
+                  props.deadline === "Today" ? "#D32F2F" : "#ED6C02",
+                color: "#FFFFFF",
+                fontWeight: "bold",
+              }}
+              variant="filled"
+              size="small"
+            />
           </Box>
 
           <Typography
             component="p"
             variant="subtitle1"
             align="center"
-            sx={{ fontStyle: "italic" }}
+            sx={{ fontStyle: "italic", color: "#5F6368" }}
           >
             {props.description}
           </Typography>
@@ -71,19 +72,21 @@ const Task = (props) => {
           <Button
             variant="contained"
             size="small"
-            color="success"
+            sx={{ backgroundColor: "#2E7D32" }}
             onClick={props.markDone}
           >
             Done
+            <DoneIcon />
           </Button>
 
           <Button
             variant="contained"
             size="small"
-            color="error"
+            sx={{ backgroundColor: "#D32F2F" }}
             onClick={props.deleteTask}
           >
             Delete
+            <DeleteIcon />
           </Button>
         </CardActions>
       </Card>
