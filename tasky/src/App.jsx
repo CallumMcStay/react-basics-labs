@@ -3,6 +3,9 @@ import Task from './components/Task';
 import React, { useState } from 'react';
 import AddTaskForm from './components/Form';
 import { v4 as uuidv4 } from 'uuid';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 function App() {
   
@@ -71,24 +74,60 @@ function App() {
   }
 
     return (
-    <div className="container">
-      <h1>Tasky</h1>
-      {taskState.tasks.map((task, index) => (
-        <Task
+    <div>
+      <Container component="main">
+      <Typography
+        component="h1"
+        variant="h2"
+        align="center"
+        gutterBottom
+        sx={{
+          backgroundColor: 'gray',
+          textAlign: 'center',
+          color: 'white',
+          padding: '20px',
+          margin: '20px 0 40px 0',
+          borderRadius: '4px'
+    }}>
+    Tasky
+  </Typography>
+</Container>
+<Container maxWidth="md" component="main">
+  <Grid
+    container
+    spacing={5}
+    alignItems="flex-start"
+    justifyContent="center">
+    {taskState.tasks.map((task, index) => (
+      <Task
         title={task.title}
         description={task.description}
         deadline={task.deadline}
-        priority={task.priority}
-        key={task.id}
         done={task.done}
+        key={task.id}
         markDone={() => doneHandler(index)}
-        deleteTask={() => deleteHandker(index)}
-        />
-      ))}
-      <AddTaskForm submit={formSubmitHandler} change={formChangeHandler} />
-     </div>
-  );
-
+        deleteTask={() => deleteHandler(index)}
+      />
+    ))}
+  </Grid>
+</Container>
+<Container
+  component="footer"
+  sx={{
+    borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+    my: 6,
+    py: 6,
+  }}
+>
+  <Grid container justifyContent="center">
+    <AddTaskForm
+      submit={formSubmitHandler}
+      change={formChangeHandler}
+    />
+  </Grid>
+</Container>
+</div>
+    )
 }
 
 export default App;
